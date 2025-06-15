@@ -8,7 +8,6 @@
       rel="stylesheet"
     />
     <style>
-      /* Copy all styles from paper-blogs.html */
       body {
         margin: 0;
         padding: 0;
@@ -32,6 +31,12 @@
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
       }
 
+      h1 {
+        color: #2d3436;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
       .top-nav {
         position: fixed;
         top: 0;
@@ -50,15 +55,11 @@
       .top-nav a {
         color: #2d3436;
         text-decoration: none;
-        font-weight: 500;
-        padding: 8px 16px;
-        border-radius: 6px;
-        transition: all 0.3s ease;
+        transition: color 0.2s;
       }
 
       .top-nav a:hover,
       .top-nav a.active {
-        background-color: #f8f9fa;
         color: #2b6d77;
       }
 
@@ -69,154 +70,11 @@
         box-sizing: border-box;
         background-color: white;
       }
-
-      h1 {
-        color: #2d3436;
-        font-weight: 600;
-        margin-bottom: 20px;
-      }
-
-      h2 {
-        color: #2d3436;
-        font-weight: 500;
-        border-bottom: 2px solid #2b6d77;
-        padding-bottom: 8px;
-        margin-top: 40px;
-      }
-
-      .profile-photo {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        margin: 20px 0;
-        object-fit: cover;
-        aspect-ratio: 1/1;
-        border: 2px solid #ddd;
-      }
-
-      .links {
-        width: 100%;
-        text-align: left;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        padding: 20px 0;
-      }
-
-      .links a {
-        display: flex;
-        align-items: center;
-        color: #2d3436;
-        text-decoration: none;
-        padding: 8px 12px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        width: 120px;
-        background-color: white;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-      }
-
-      .links a:hover {
-        color: #2b6d77;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .links img {
-        width: 24px;
-        height: 24px;
-        margin-right: 5px;
-      }
-
-      .blog-post {
-        background-color: #f8f9fa;
-        padding: 20px;
-        margin-bottom: 30px;
-        border-radius: 8px;
-        transition: transform 0.2s ease;
-      }
-
-      .blog-post:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .blog-title {
-        font-size: 1.4em;
-        color: #2b6d77;
-        margin-bottom: 10px;
-      }
-
-      .blog-meta {
-        font-size: 0.9em;
-        color: #636e72;
-        margin-bottom: 15px;
-      }
-
-      .blog-preview {
-        color: #2d3436;
-        margin-bottom: 15px;
-      }
-
-      .read-more {
-        color: #2b6d77;
-        text-decoration: none;
-        font-weight: 500;
-      }
-
-      .read-more:hover {
-        text-decoration: underline;
-      }
     </style>
   </head>
   <body>
     <div class="sidebar">
       <h1><strong>Pratham</strong> Grover</h1>
-      <img src="./IMG_9050.jpg" alt="Profile Photo" class="profile-photo" />
-      <div class="links">
-        <a href="mailto:prathamgrover777@gmail.com">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/552/552486.png"
-            alt="Email"
-          />
-          Email
-        </a>
-        <a href="https://github.com/PrathamLearnsToCode" target="_blank">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/733/733553.png"
-            alt="GitHub"
-          />
-          GitHub
-        </a>
-        <a
-          href="https://www.linkedin.com/in/pratham-grover-428123147/"
-          target="_blank"
-        >
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"
-            alt="LinkedIn"
-          />
-          LinkedIn
-        </a>
-        <a
-          href="https://scholar.google.com/citations?user=drjbTFAAAAAJ&hl=en"
-          target="_blank"
-        >
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/2702/2702134.png"
-            alt="Google Scholar"
-          />
-          Scholar
-        </a>
-        <a href="https://www.kaggle.com/prathamgrover" target="_blank">
-          <img
-            src="https://cdn.iconscout.com/icon/free/png-256/kaggle-3521526-2945029.png"
-            alt="Kaggle"
-          />
-          Kaggle
-        </a>
-      </div>
     </div>
 
     <nav class="top-nav">
@@ -226,25 +84,7 @@
     </nav>
 
     <div class="main-content">
-      <h2>Mathematical Concepts & Applications</h2>
-      
-      <div class="blog-post">
-        <div class="blog-title">Linear Algebra in Machine Learning</div>
-        <div class="blog-meta">Published on March 20, 2024 | Mathematics</div>
-        <div class="blog-preview">
-          Understanding the fundamental concepts of linear algebra and their applications in machine learning algorithms. From vector spaces to eigendecomposition, this post covers essential mathematical foundations.
-        </div>
-        <a href="#" class="read-more">Read More →</a>
-      </div>
-
-      <div class="blog-post">
-        <div class="blog-title">Calculus in Deep Learning</div>
-        <div class="blog-meta">Published on March 18, 2024 | Mathematics</div>
-        <div class="blog-preview">
-          A deep dive into the calculus concepts that power deep learning. Understanding gradients, backpropagation, and optimization from a mathematical perspective.
-        </div>
-        <a href="#" class="read-more">Read More →</a>
-      </div>
+      <!-- Empty content -->
     </div>
   </body>
 </html> 
