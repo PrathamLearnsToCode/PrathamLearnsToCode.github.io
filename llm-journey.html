@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>30 Days of LLMs - Pratham Grover</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ... existing styles ... */
+      
+      /* Updated Navigation Styles */
+      .top-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(65% - 60px);
+        background-color: #ffffff;
+        padding: 15px 30px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
+        gap: 30px;
+        margin-left: 35%;
+      }
+
+      /* Add new tab styles */
+      .top-nav a.new-tab::after {
+        content: "New";
+        font-size: 0.7em;
+        background-color: #2b6d77;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 5px;
+        position: relative;
+        top: -8px;
+      }
+
+      /* Blog content styles */
+      .blog-content {
+        font-size: 1.1em;
+        line-height: 1.8;
+        color: #2d3436;
+        padding-top: 60px;
+        text-align: center;
+      }
+
+      .blog-content h1 {
+        color: #2b6d77;
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
+
+      .coming-soon {
+        font-size: 1.2em;
+        color: #636e72;
+        margin-top: 2em;
+      }
+
+      .countdown {
+        font-size: 2em;
+        color: #2b6d77;
+        margin-top: 1em;
+        font-weight: bold;
+      }
+
+      /* ... rest of existing styles ... */
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h1><strong>Pratham</strong> Grover</h1>
+      <img src="./IMG_9050.jpg" alt="Profile Photo" class="profile-photo" />
+      <div class="links">
+        <!-- ... existing links ... -->
+      </div>
+    </div>
+
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <a href="paper-blogs.html">Paper Blogs</a>
+      <a href="mathematics.html">Math Blogs</a>
+      <a href="llm-journey.html" class="active new-tab">30 Days of LLMs</a>
+    </nav>
+
+    <div class="main-content">
+      <div class="blog-content">
+        <h1>30 Days of LLMs</h1>
+        <p class="coming-soon">Embarking on a 30-day journey exploring Large Language Models</p>
+        <p class="countdown">Coming Soon!</p>
+        <p>Stay tuned for daily insights, experiments, and discoveries in the world of LLMs.</p>
+      </div>
+    </div>
+  </body>
+</html> 

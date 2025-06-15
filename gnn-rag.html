@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>GNN-RAG: Graph Neural Retrieval for LLMs - Pratham Grover</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ... existing styles ... */
+      
+      /* Updated Navigation Styles */
+      .top-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(65% - 60px);
+        background-color: #ffffff;
+        padding: 15px 30px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
+        gap: 30px;
+        margin-left: 35%;
+      }
+
+      /* Add new tab styles */
+      .top-nav a.new-tab::after {
+        content: "New";
+        font-size: 0.7em;
+        background-color: #2b6d77;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 5px;
+        position: relative;
+        top: -8px;
+      }
+
+      /* Blog content styles */
+      .blog-content {
+        font-size: 1.1em;
+        line-height: 1.8;
+        color: #2d3436;
+        padding-top: 60px;
+      }
+
+      .blog-content h1, .blog-content h2, .blog-content h3 {
+        color: #2b6d77;
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
+
+      .blog-content p {
+        margin-bottom: 1.5em;
+      }
+
+      .blog-content code {
+        background-color: #f8f9fa;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+      }
+
+      .blog-content pre {
+        background-color: #f8f9fa;
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 1.5em 0;
+      }
+
+      .blog-content a {
+        color: #2b6d77;
+        text-decoration: none;
+      }
+
+      .blog-content a:hover {
+        text-decoration: underline;
+      }
+
+      .blog-meta {
+        color: #636e72;
+        font-size: 0.9em;
+        margin-bottom: 2em;
+      }
+
+      /* ... rest of existing styles ... */
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h1><strong>Pratham</strong> Grover</h1>
+      <img src="./IMG_9050.jpg" alt="Profile Photo" class="profile-photo" />
+      <div class="links">
+        <!-- ... existing links ... -->
+      </div>
+    </div>
+
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <a href="paper-blogs.html" class="active">Paper Blogs</a>
+      <a href="mathematics.html">Math Blogs</a>
+      <a href="llm-journey.html" class="new-tab">30 Days of LLMs</a>
+    </nav>
+
+    <div class="main-content">
+      <div class="blog-content">
+        <h1>GNN-RAG: Graph Neural Retrieval for Large Language Model Reasoning</h1>
+        <div class="blog-meta">Published on March 18, 2024 | AI Research</div>
+
+        <p>Ever asked your AI a tricky question like, "Which language do Jamaican people speak?" and gotten a half-baked answer? Large language models (LLMs) are great at chatting, but they can fumble when it comes to reasoning over structured data like Knowledge Graphs (KGs). Introducing GNN-RAG, an approach from a paper that teams up Graph Neural Networks (GNNs) with LLMs to deliver razor-sharp answers grounded in facts. It's like giving your AI a detective's brain and a poet's tongue. Let's understand it in a simple language.</p>
+
+        <h2>Knowledge Graphs: The Fact Web</h2>
+        <p>Knowledge Graphs (KGs) are like a giant web of human knowledge, built from triplets of the form (head, relation, tail). Think (Jamaica, official_language, English) or (Stephen Hawking, studied_at, Oxford). These triplets connect to form a graph, where nodes (like "Jamaica" or "English") are linked by relationships (like "official_language"). Knowledge Graph Question Answering (KGQA) is the task of digging through this graph to find a set of entities {a} that answer a natural-language question q, like "Which language do Jamaican people speak?" The catch? KGs can have millions of nodes and facts, so we need a smart way to navigate them.</p>
+
+        <h2>The Problem: AI's Got Gaps</h2>
+        <p>LLMs, like ChatGPT or LLaMA, are wizards at understanding natural language but struggle with the structured, interconnected nature of KGs. They might guess or hallucinate answers, especially for complex questions requiring multiple steps (aka multi-hop). Meanwhile, GNNs are champs at reasoning over graphs, think node classification to spot answers but they're not great at spitting out fluent, human like responses. It's like one's a math genius and the other's a storyteller, and they need to team up. That's where GNN-RAG comes in, blending the two in a Retrieval-Augmented Generation (RAG) framework to understand KGQA.</p>
+
+        <h2>How GNN-RAG Works: A Step-by-Step Breakdown</h2>
+        <p>Let's walk through how GNN-RAG tackles a question like, "Where did the author of A Brief History of Time go to college?" It's a multi-hop question that needs both graph reasoning and natural-language finesse.</p>
+
+        <h3>Step 1: Subgraph Retrieval</h3>
+        <p>KGs are massive, so GNN-RAG starts by pulling a smaller, question-specific subgraph Gq using techniques like entity linking and neighbor extraction. For our question, this subgraph includes nodes like "Stephen Hawking," "A Brief History of Time," and "Oxford." The goal? Make sure all correct answers {a} are in Gq.</p>
+
+        <h3>Step 2: GNN Reasoning</h3>
+        <p>The GNN treats KGQA as a node classification problem, labeling nodes as answers or non-answers. It updates node representations using a message-passing mechanism, defined as:</p>
+
+        <p><strong>Mathematical Formula:</strong></p>
+        <pre>**h**ᵥ⁽ˡ⁾ = ψ(**h**ᵥ⁽ˡ⁻¹⁾, Σᵥ'∈Nᵥ ω(q, r) · **m**ᵥᵥ'⁽ˡ⁾)</pre>
+
+        <p>Here, **h**ᵥ⁽ˡ⁾ is the representation of node v at layer l, ψ combines representations across layers, and ω(q, r) measures how relevant a relation r (like "studied_at") is to the question q. Messages **m**ᵥᵥ'⁽ˡ⁾ come from neighboring nodes v'. The GNN uses a pretrained language model (like SBERT or LMSR) to encode the question and relations, ensuring the reasoning is question-aware.</p>
+
+        <p>After L layers (e.g., L=3 for deep reasoning), the GNN scores nodes using a softmax over final representations **h**ᵥ⁽ᴸ⁾, picking high-probability nodes as answer candidates (e.g., "Oxford," "Cambridge"). It also extracts the shortest paths from question entities to these answers, like:</p>
+
+        <pre>A Brief History of Time → authored_by → Stephen Hawking → studied_at → Oxford
+Stephen Hawking → studied_at → Cambridge</pre>
+
+        <p>These paths capture the reasoning logic.</p>
+
+        <h3>Step 3: Path Verbalization</h3>
+        <p>The GNN's paths are turned into natural-language sentences, like:</p>
+        <pre>"Stephen Hawking is the author of A Brief History of Time. He studied at the University of Oxford."
+"He also studied at the University of Cambridge."</pre>
+
+        <p>This is done using a prompt template, verbalizing paths as "{question entity} → {relation} → {entity} → … → {answer entity}."</p>
+
+        <h3>Step 4: LLM Reasoning with RAG</h3>
+        <p>The verbalized paths are fed to a fine-tuned LLM (e.g., LLaMA2-Chat-7B) with a prompt like:</p>
+        <pre>"Based on the reasoning paths, please answer the given question.
+Reasoning Paths: {paths}
+Question: {question}"</pre>
+
+        <p>The LLM reads the context and outputs a fluent answer: "Stephen Hawking attended both Oxford and Cambridge." To make it robust, the LLM is fine-tuned on question-answer pairs, optimizing for accurate responses given verbalized paths.</p>
+
+        <h3>Step 5: Retrieval Augmentation (RA)</h3>
+        <p>To boost performance, GNN-RAG+RA combines the GNN's paths with those from an LLM-based retriever (like RoG). RoG uses beam-search decoding to generate diverse relation paths (e.g., &lt;author, studied_at&gt;, &lt;writer, education&gt;), which are mapped to the KG to fetch intermediate entities. The union of GNN and LLM paths increases answer recall, especially for single-hop and multi-hop questions. Alternatively, GNN-RAG+Ensemble combines paths from two GNNs (one using SBERT, another using LMSR) for a cheaper, equally effective boost.</p>
+
+        <h2>Why GNN-RAG Is a Big Deal</h2>
+        <p>GNN-RAG is like a dream team: GNNs handle the heavy lifting of multi-hop reasoning over complex KGs, while LLMs polish the answers into something you'd hear from a friend. The GNN's message-passing shines for multi-hop questions, with deep GNNs (L=3) achieving 88.5% answer coverage on WebQSP's 2-hop questions, compared to 82.1% for RoG and 79.8% for shallow GNNs (L=1). It's also efficient, using fewer input tokens (357 vs. 435 for RoG).</p>
+
+        <p>The paper's results are fire: GNN-RAG matches or beats GPT-4 on WebQSP and CWQ benchmarks using just a 7B LLM. It crushes multi-hop and multi-entity questions, outperforming competitors by 8.9–15.5% in F1 score. For simple 1-hop questions, the RA technique ensures LLM-based retrieval fills any gaps, making GNN-RAG versatile.</p>
+
+        <h2>The Tech Behind the Magic</h2>
+        <p>Here's the breakdown of GNN-RAG's key components:</p>
+        <ul>
+          <li><strong>GNN Reasoning</strong>: Uses message-passing to score nodes and extract shortest paths, leveraging pretrained LMs (SBERT or LMSR) for question-relation matching.</li>
+          <li><strong>Path Verbalization</strong>: Converts graph paths into natural-language context for the LLM.</li>
+          <li><strong>LLM Fine-Tuning</strong>: A LLaMA2-Chat-7B model is tuned with RAG prompt templates to generate accurate, fluent answers.</li>
+          <li><strong>Retrieval Augmentation</strong>: Combines GNN and LLM retrievers (or multiple GNNs) for diverse, high-recall paths.</li>
+          <li><strong>Efficiency</strong>: Deep GNNs retrieve complex multi-hop info with fewer tokens than LLM-based methods.</li>
+        </ul>
+
+        <p>The paper also includes a theorem showing that the GNN's output hinges on the question-relation matching function ω(q, r), highlighting the importance of the chosen LM (SBERT vs. LMSR).</p>
+
+        <h2>Limitations and Trade-Offs</h2>
+        <p>GNNs shine for multi-hop questions but can lag on simple 1-hop questions where precise question-relation matching matters more. Here, LLM-based retrievers like RoG edge out, which is why RA is clutch. Also, LLM-based retrieval can be costly due to beam-search decoding, but GNN-RAG+Ensemble offers a leaner alternative by combining GNN outputs.</p>
+
+        <h2>Implementation</h2>
+        <p>If you want to play with GNN-RAG, the code and results are at <a href="https://github.com/cmavro/GNN-RAG" target="_blank">https://github.com/cmavro/GNN-RAG</a>. Spin it up, tweak the GNN layers, or mix in your own LLM - it's a playground for AI nerds fr.</p>
+
+        <h2>The Big Picture</h2>
+        <p>GNN-RAG is a step toward AI that thinks and talks like us, blending structured reasoning with natural language. It's not just about nailing KGQA, it's about building systems that reason logically and communicate clearly. So, next time you're curious about a fact, imagine GNN-RAG weaving through a web of knowledge to drop a crisp, accurate answer.</p>
+
+        <p><strong>Paper</strong>: <a href="https://arxiv.org/pdf/2405.20139" target="_blank">Read the full paper here</a></p>
+      </div>
+    </div>
+  </body>
+</html> 

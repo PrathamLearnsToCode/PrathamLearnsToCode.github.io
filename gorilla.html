@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Gorilla: Enhancing LLMs with API Integration - Pratham Grover</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ... existing styles ... */
+      
+      /* Updated Navigation Styles */
+      .top-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(65% - 60px);
+        background-color: #ffffff;
+        padding: 15px 30px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
+        gap: 30px;
+        margin-left: 35%;
+      }
+
+      /* Add new tab styles */
+      .top-nav a.new-tab::after {
+        content: "New";
+        font-size: 0.7em;
+        background-color: #2b6d77;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 5px;
+        position: relative;
+        top: -8px;
+      }
+
+      /* Blog content styles */
+      .blog-content {
+        font-size: 1.1em;
+        line-height: 1.8;
+        color: #2d3436;
+        padding-top: 60px;
+      }
+
+      .blog-content h1, .blog-content h2, .blog-content h3 {
+        color: #2b6d77;
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
+
+      .blog-content p {
+        margin-bottom: 1.5em;
+      }
+
+      .blog-content code {
+        background-color: #f8f9fa;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+      }
+
+      .blog-content pre {
+        background-color: #f8f9fa;
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 1.5em 0;
+      }
+
+      .blog-content a {
+        color: #2b6d77;
+        text-decoration: none;
+      }
+
+      .blog-content a:hover {
+        text-decoration: underline;
+      }
+
+      .blog-meta {
+        color: #636e72;
+        font-size: 0.9em;
+        margin-bottom: 2em;
+      }
+
+      /* ... rest of existing styles ... */
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h1><strong>Pratham</strong> Grover</h1>
+      <img src="./IMG_9050.jpg" alt="Profile Photo" class="profile-photo" />
+      <div class="links">
+        <!-- ... existing links ... -->
+      </div>
+    </div>
+
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <a href="paper-blogs.html" class="active">Paper Blogs</a>
+      <a href="mathematics.html">Math Blogs</a>
+      <a href="llm-journey.html" class="new-tab">30 Days of LLMs</a>
+    </nav>
+
+    <div class="main-content">
+      <div class="blog-content">
+        <h1>Gorilla: Enhancing LLMs with Massive API Integration</h1>
+        <div class="blog-meta">Published on March 15, 2024 | AI Tools</div>
+
+        <p>Ever asked a language model to book a flight or analyze an image, only to get a vague or incorrect response? Large Language Models (LLMs) excel at dialogue and reasoning, but using external tools via API calls often trips them up. The 2023 paper by Patil et al. introduces Gorilla, a finetuned LLaMA-7B model that outperforms GPT-4 in generating accurate API calls. Paired with a document retriever, Gorilla adapts to changing API documentation and reduces hallucination errors. Let's unpack how Gorilla works, its technical foundation, and why it's a game-changer for tool-augmented LLMs.</p>
+
+        <h2>The API Challenge</h2>
+        <p>LLMs like GPT-4 can chat fluently or solve math problems, but they struggle with API calls due to their static knowledge and limited context. APIs, especially in machine learning (ML), are vast, overlapping, and constantly updated, making it hard to select the right one or use it correctly. For example, asking for an image classification model might yield a nonexistent API or wrong library. Gorilla addresses this by finetuning an LLM to handle millions of APIs, using a new benchmark, APIBench, to test its prowess.</p>
+
+        <h2>Gorilla's Approach: Finetuning for APIs</h2>
+        <p>Gorilla transforms API usage into a sequence-to-sequence task, finetuning LLaMA-7B to map natural language prompts to correct API calls. It integrates a retriever to fetch up-to-date documentation, enabling adaptability. Here's how it operates, illustrated with a prompt like "detect animals in an image."</p>
+
+        <h3>APIBench Dataset</h3>
+        <p>Gorilla relies on APIBench, a comprehensive dataset of 1,645 ML APIs from HuggingFace (925), TorchHub (94), and TensorHub (626). These cover domains like image classification, text generation, and object detection. Each API includes a JSON with fields like functionality, arguments, and example code. Using self-instruct, 10 synthetic user prompts per API were generated, creating instruction-API pairs. For example, a prompt like "classify pedestrians in an image" maps to torch.hub.load('datvuthanh/hybridnets', 'hybridnets', pretrained=True).</p>
+
+        <h3>Model Architecture and Training</h3>
+        <p>Gorilla starts with LLaMA-7B, finetuned on APIBench for 5 epochs with a 2e-5 learning rate, cosine decay, and batch size of 64 on 8xA100 GPUs. The dataset is split (90% training for HuggingFace, 80% for others). Each data point is formatted as a user-agent chat, with the user prompt (e.g., "detect animals") and agent response (API call). For retriever-aware training, prompts include "Use this API documentation: ", teaching Gorilla to parse documentation. This reduces hallucination and adapts to documentation changes.</p>
+
+        <h3>Inference Modes</h3>
+        <p>Gorilla operates in two modes:</p>
+        <p><strong>Zero-shot</strong>: The user prompt is fed directly to Gorilla, which outputs an API call (e.g., hub.load('https://tfhub.dev/google/openimages_v4/ssd_mobilenet_v2/1') for animal detection).</p>
+        <p><strong>Retrieval</strong>: A retriever (BM25 or GPT-Index) fetches relevant API documentation, appended to the prompt. Gorilla then generates the call, leveraging the latest information.</p>
+
+        <h3>Evaluation with AST Matching</h3>
+        <p>To verify API calls, Gorilla uses Abstract Syntax Tree (AST) sub-tree matching. It parses the generated code into an AST, checking if the API call (e.g., torch.hub.load) and key arguments (e.g., repo_or_dir, model) match a reference in APIBench. Hallucination is defined as an API call not in the dataset. For HuggingFace, domain accuracy is also checked due to its diversity.</p>
+
+        <h2>Why Gorilla Stands Out</h2>
+        <p>Gorilla shines in APIBench evaluations, achieving 59.13% accuracy on TorchHub, 71.68% on HuggingFace, and 83.79% on TensorHub in zero-shot settings, surpassing GPT-4 by 20.43% on TorchHub and 10.75% over ChatGPT. With an oracle retriever, accuracy climbs to 67.20%, 91.26%, and 94.16%, respectively. Hallucination errors drop significantly (e.g., 6.98% on TorchHub vs. 36.55% for GPT-4). Key strengths include:</p>
+
+        <p><strong>Constraint Handling</strong>: Gorilla excels at respecting constraints, like selecting an image classifier with > 80% ImageNet accuracy, matching GPT-3.5 with retrievers and outperforming in zero-shot (47.88% accuracy).</p>
+
+        <p><strong>Adaptability</strong>: Retriever-aware training lets Gorilla handle documentation changes, like upgrading a model's backbone (e.g., ResNet-50 to ResNet-101).</p>
+
+        <p><strong>Efficiency</strong>: Finetuning focuses on API calls, not general coding, making it lightweight and practical.</p>
+
+        <p>Limitations include reliance on retriever quality (BM25 can degrade accuracy by 52.27% vs. oracle) and focus on single API calls, not complex programs. Synthetic training data may also miss real-world nuances.</p>
+
+        <h2>Try It Yourself</h2>
+        <p>Gorilla's code, model, and dataset are at <a href="https://gorilla.cs.berkeley.edu" target="_blank">https://gorilla.cs.berkeley.edu</a>. Test it with prompts like "generate a video from text" or explore its retriever integration.</p>
+
+        <h2>The Future of Tool-Augmented LLMs</h2>
+        <p>Gorilla redefines how LLMs interact with tools, turning them into interfaces for vast API ecosystems. By finetuning for API calls and integrating retrieval, it tackles hallucination and adaptability challenges. Future work could expand to RESTful APIs or multi-call tasks, but Gorilla already sets a high standard. Next time you need an API call, imagine Gorilla delivering the perfect solution, tailored to the latest documentation.</p>
+      </div>
+    </div>
+  </body>
+</html> 

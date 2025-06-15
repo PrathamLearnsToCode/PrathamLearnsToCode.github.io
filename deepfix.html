@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DeepFix: Automating C Code Repair - Pratham Grover</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ... existing styles ... */
+      
+      /* Updated Navigation Styles */
+      .top-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(65% - 60px);
+        background-color: #ffffff;
+        padding: 15px 30px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
+        gap: 30px;
+        margin-left: 35%;
+      }
+
+      /* Add new tab styles */
+      .top-nav a.new-tab::after {
+        content: "New";
+        font-size: 0.7em;
+        background-color: #2b6d77;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 5px;
+        position: relative;
+        top: -8px;
+      }
+
+      /* Blog content styles */
+      .blog-content {
+        font-size: 1.1em;
+        line-height: 1.8;
+        color: #2d3436;
+        padding-top: 60px;
+      }
+
+      .blog-content h1, .blog-content h2, .blog-content h3 {
+        color: #2b6d77;
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
+
+      .blog-content p {
+        margin-bottom: 1.5em;
+      }
+
+      .blog-content code {
+        background-color: #f8f9fa;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+      }
+
+      .blog-content pre {
+        background-color: #f8f9fa;
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 1.5em 0;
+      }
+
+      .blog-content a {
+        color: #2b6d77;
+        text-decoration: none;
+      }
+
+      .blog-content a:hover {
+        text-decoration: underline;
+      }
+
+      .blog-meta {
+        color: #636e72;
+        font-size: 0.9em;
+        margin-bottom: 2em;
+      }
+
+      /* ... rest of existing styles ... */
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h1><strong>Pratham</strong> Grover</h1>
+      <img src="./IMG_9050.jpg" alt="Profile Photo" class="profile-photo" />
+      <div class="links">
+        <!-- ... existing links ... -->
+      </div>
+    </div>
+
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <a href="paper-blogs.html" class="active">Paper Blogs</a>
+      <a href="mathematics.html">Math Blogs</a>
+      <a href="llm-journey.html" class="new-tab">30 Days of LLMs</a>
+    </nav>
+
+    <div class="main-content">
+      <div class="blog-content">
+        <h1>DeepFix: Automating C Code Repair with Deep Learning</h1>
+        <div class="blog-meta">Published on March 20, 2024 | Code Analysis</div>
+
+        <p>Picture wrestling with a C program, only to have the compiler throw a vague error message pointing to the wrong line. Infuriating, isn't it? Compilers catch mistakes but rarely help fix them. That's where DeepFix comes in. This deep learning solution automatically detects and corrects common C programming errors, acting like a coding mentor. Let's explore how DeepFix operates, its technical core, and why it's a breakthrough for coders.</p>
+
+        <h2>Coding Slip-Ups: The Challenge</h2>
+        <p>Writing C code is like assembling a puzzle: one missing piece, like a semicolon or brace, can break everything. These "common programming errors" - think undeclared variables, stray commas, or mismatched delimiters - are similar to typos in writing. They often arise from inexperience or momentary lapses. While compilers flag these issues, their error messages are often cryptic, misidentifying the problem's location. DeepFix offers a complete solution, using a neural network to pinpoint and patch these errors without external tools.</p>
+
+        <h2>Inside DeepFix: How It Fixes Code</h2>
+        <p>DeepFix approaches code repair as a sequence-to-sequence learning task, akin to translating text. It employs a multi-layered sequence-to-sequence neural network with attention to analyze a faulty C program and suggest fixes. Let's break it down using an example of a program with a missing brace triggering a compiler error.</p>
+
+        <h3>Code as Sequences</h3>
+        <p>DeepFix converts a C program into a token sequence, capturing keywords (e.g., int), special characters (e.g., ;), and identifiers. To streamline learning, it maps variables and function names to a fixed pool, preserving program semantics. Literals become type-specific tokens (e.g., 123 to NUM, "hello" to STR). Each line is represented as a pair: the line number and tokenized statement, ending with &lt;eos&gt;. A k-line program becomes: (l₁, s₁), (l₂, s₂), ..., (lₖ, sₖ), &lt;eos&gt;. This setup allows targeting fixes to specific lines.</p>
+
+        <h3>Neural Network Design</h3>
+        <p>DeepFix's core is a sequence-to-sequence model with attention, drawing from neural machine translation. Its components are:</p>
+
+        <p><strong>Encoder</strong>: N stacked gated recurrent units (GRUs) process the tokenized program. For token xₜ, hidden states are computed:</p>
+        <pre>
+hₜ⁽¹⁾ = GRU(hₜ₋₁⁽¹⁾, xₜ)
+hₜ⁽ⁿ⁾ = GRU(hₜ₋₁⁽ⁿ⁾, hₜ⁽ⁿ⁻¹⁾), for n = 2, ..., N</pre>
+
+        <p>These generate annotations encoding program context.</p>
+
+        <p><strong>Decoder with Attention</strong>: N GRUs produce the fix. A context vector cₜ weights encoder annotations:</p>
+        <pre>
+cₜ = Σⱼ (aₜⱼ · hⱼ⁽ᴺ⁾)
+aₜⱼ = exp(eₜⱼ) / Σₖ exp(eₜₖ)
+eₜⱼ = φ(dₜ₋₁, hⱼ⁽ᴺ⁾)</pre>
+
+        <p>Here, φ is a feed-forward network for soft alignment, focusing on key input parts. The decoder outputs a fix as a line number lᵢ and corrected statement sᵢ'.</p>
+
+        <p><strong>Training</strong>: Trained on error-fix pairs using the Adam optimizer and cross-entropy loss. Dropout (0.2) and gradient clipping prevent overfitting. Two networks are used: one for undeclared variables (using ID token) and another for other errors, boosting accuracy by up to 5%.</p>
+
+        <h2>Fixing Errors Step-by-Step</h2>
+        <p>Multiple errors in a program? DeepFix iterates. It predicts a fix (lᵢ, sᵢ'), updates the line, and recompiles. If errors persist, it continues until the program is error-free or no fixes are suggested. Correct programs trigger a "fixed" token to halt. This approach resolved 4447 errors in the first iteration and 919 more later, supporting up to five iterations.</p>
+
+        <h3>Validation Check</h3>
+        <p>DeepFix uses GCC only to verify fixes, ensuring they resolve errors without creating new ones. An oracle blocks invalid fixes, like deleting problematic lines.</p>
+
+        <h2>DeepFix's Impact</h2>
+        <p>DeepFix redefines automated code repair. Unlike methods tied to specific tasks or reliant on brute-force searches, it's task-agnostic, tackling errors across 93 varied C programming tasks, from basic arithmetic to dynamic programming. It resolved 32% of 16,743 error messages in 6,971 student programs, fully fixing 27% and partially fixing 19%, all in milliseconds.</p>
+
+        <p>In a seeded dataset (correct programs with up to five injected errors), DeepFix fully fixed 56% of 9,230 programs and resolved 63% of 31,783 errors. It correctly localized 78.68% of errors in the first iteration, with 87.5% in the top-5 predictions via beam search. The attention mechanism captures long-term dependencies, outperforming methods limited to local context.</p>
+
+        <h2>Technical Foundations</h2>
+        <p>DeepFix's key elements include:</p>
+        <ul>
+          <li><strong>Code Representation</strong>: Tokenizes programs with line numbers, standardizing identifiers and literals.</li>
+          <li><strong>Neural Model</strong>: 4-layer GRUs with 300 cells, attention for long-distance dependencies, and a 129-token vocabulary in 50D embeddings.</li>
+          <li><strong>Iterative Strategy</strong>: Addresses one error per iteration, stopping when fixed or stalled.</li>
+          <li><strong>Training Data</strong>: Generated by mutating correct programs, creating error-fix pairs for up to five errors.</li>
+          <li><strong>Speed</strong>: Fixes errors in tens of milliseconds, ideal for real-time use.</li>
+        </ul>
+
+        <p>Limitations exist: complex fixes (e.g., array assignments needing loops) are out of reach, and synthetic training data misses some real-world errors, lowering raw dataset performance (27% vs. 56% complete fixes).</p>
+
+        <h2>Looking Ahead</h2>
+        <p>DeepFix highlights deep learning's potential to streamline coding by automating error repair. Its sequence-to-sequence approach with attention offers a scalable, language-agnostic framework. Future improvements could address complex fixes or longer sequences, but DeepFix already raises the bar. Next time a compiler error stumps you, picture DeepFix stepping in with a precise, automated solution.</p>
+
+        <p><strong>Paper</strong>: <a href="https://ojs.aaai.org/index.php/AAAI/article/view/10742" target="_blank">Read the full paper here</a></p>
+      </div>
+    </div>
+  </body>
+</html> 

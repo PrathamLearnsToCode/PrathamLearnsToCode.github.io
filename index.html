@@ -197,19 +197,20 @@
         transform: scale(1.05);
       }
 
-      /* New Navigation Styles */
+      /* Updated Navigation Styles */
       .top-nav {
         position: fixed;
         top: 0;
         right: 0;
-        width: 65%;
+        width: calc(65% - 60px); /* Adjusted width to account for padding */
         background-color: #ffffff;
-        padding: 15px 60px;
+        padding: 15px 30px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         z-index: 1000;
         display: flex;
         justify-content: flex-end;
         gap: 30px;
+        margin-left: 35%; /* Align with main content */
       }
 
       .top-nav a {
@@ -225,6 +226,19 @@
       .top-nav a.active {
         background-color: #f8f9fa;
         color: #2b6d77;
+      }
+
+      /* Add new tab styles */
+      .top-nav a.new-tab::after {
+        content: "New";
+        font-size: 0.7em;
+        background-color: #2b6d77;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 5px;
+        position: relative;
+        top: -8px;
       }
     </style>
   </head>
@@ -281,6 +295,7 @@
       <a href="index.html" class="active">Home</a>
       <a href="paper-blogs.html">Paper Blogs</a>
       <a href="mathematics.html">Math Blogs</a>
+      <a href="llm-journey.html" class="new-tab">30 Days of LLMs</a>
     </nav>
 
     <div class="main-content">
