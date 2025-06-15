@@ -94,7 +94,7 @@
 
       .main-content {
         margin-left: 35%;
-        padding: 80px 60px 40px;
+        padding: 40px 60px;
         width: 65%;
         box-sizing: border-box;
         background-color: white;
@@ -196,36 +196,6 @@
       .company-logo:hover {
         transform: scale(1.05);
       }
-
-      /* New Navigation Styles */
-      .top-nav {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 65%;
-        background-color: #ffffff;
-        padding: 15px 60px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        z-index: 1000;
-        display: flex;
-        justify-content: flex-end;
-        gap: 30px;
-      }
-
-      .top-nav a {
-        color: #2d3436;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 8px 16px;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-      }
-
-      .top-nav a:hover,
-      .top-nav a.active {
-        background-color: #f8f9fa;
-        color: #2b6d77;
-      }
     </style>
   </head>
   <body>
@@ -276,12 +246,6 @@
         </a>
       </div>
     </div>
-
-    <nav class="top-nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="paper-blogs.html">Paper Blogs</a>
-      <a href="mathematics.html">Math Blogs</a>
-    </nav>
 
     <div class="main-content">
       <div class="introduction">
@@ -373,14 +337,10 @@
                 Israel-Palestine Conflict
               </div>
               <div class="publication-venue">
-                WWW '25: Companion Proceedings of the ACM on Web Conference 2025
+                ACM [Workshop on Multimodal Content Analysis for Social Good],
+                2025
               </div>
-              <a
-                href="https://dl.acm.org/doi/10.1145/3701716.3718387"
-                target="_blank"
-                class="publication-link"
-                >View Publication →</a
-              >
+              <span class="publication-link">Accepted(Sharing soon!)</span>
             </div>
           </li>
           <!-- Add more publication items as needed -->
