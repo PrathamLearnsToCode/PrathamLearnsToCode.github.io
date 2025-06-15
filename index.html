@@ -16,19 +16,20 @@
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, sans-serif;
         background-color: white;
+        color: #2d3436;
+        line-height: 1.6;
       }
 
       .top-nav {
         position: fixed;
         top: 0;
-        right: 0;
         width: 100%;
         background-color: #ffffff;
         padding: 15px 30px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         z-index: 1000;
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         gap: 30px;
         box-sizing: border-box;
       }
@@ -43,6 +44,104 @@
       .top-nav a.active {
         color: #2b6d77;
       }
+
+      .main-content {
+        max-width: 800px;
+        margin: 100px auto 40px;
+        padding: 0 20px;
+      }
+
+      .introduction {
+        margin-bottom: 60px;
+      }
+
+      .introduction p {
+        margin-bottom: 20px;
+        font-size: 1.1em;
+      }
+
+      h2 {
+        color: #2d3436;
+        font-weight: 500;
+        border-bottom: 2px solid #2b6d77;
+        padding-bottom: 8px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+      }
+
+      .publication-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .publication-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        transition: transform 0.2s ease;
+      }
+
+      .publication-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .publication-image {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .publication-details {
+        flex: 1;
+      }
+
+      .publication-title {
+        font-weight: 500;
+        color: #2d3436;
+        margin-bottom: 8px;
+      }
+
+      .publication-venue {
+        font-size: 0.9em;
+        color: #636e72;
+        margin-bottom: 8px;
+      }
+
+      .publication-link {
+        color: #2b6d77;
+        text-decoration: none;
+        font-size: 0.9em;
+        display: inline-block;
+      }
+
+      .publication-link:hover {
+        text-decoration: underline;
+      }
+
+      .affiliations {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      .company-logo {
+        max-width: 120px;
+        height: auto;
+        transition: transform 0.3s ease;
+        margin: 10px;
+      }
+
+      .company-logo:hover {
+        transform: scale(1.05);
+      }
     </style>
   </head>
   <body>
@@ -51,5 +150,93 @@
       <a href="paper-blogs.html">Paper Blogs</a>
       <a href="mathematics.html">Math Blogs</a>
     </nav>
+
+    <div class="main-content">
+      <div class="introduction">
+        <p>I am a Research Software Developer at Microsoft Research, India, working with the FoSSE group. My work focuses on developing scalable solutions at the intersection of AI and Software Engineering, under the guidance of Suresh Parthasarathy, Arun Iyer, and Bash. My primary research centers on architecting efficient Large Language Model (LLM) frameworks for programming-centric tasks. Beyond this, I'm passionate about leveraging AI for Social Good, developing robust Medical Diagnostics, and advancing the frontiers of multimodal intelligence through cross-modal learning and representation.</p>
+
+        <p>I graduated from Delhi Technological University (formerly known as DCE) in 2024 with a major in Biotechnology and a minor in AI & Machine Learning. Throughout my academic journey, I've had the privilege of collaborating with researchers from prestigious institutions including Virginia Tech, University of California Berkeley, and University of Technology Sydney. My industrial experience spans roles at Siemens and Samsung AI Lab, where I contributed to cutting-edge projects in computer vision and Graph Neural Networks.</p>
+
+        <p>Apart from my research work, I was honored as the National Level Winner of Smart India Hackathon, 2022 and awarded ₹1 Lakh for developing a Computer Vision based software stack in Robotics and Drones. I was also selected to attend the Oxford ML Summer School in 2024.</p>
+      </div>
+
+      <div class="publications">
+        <h2>Publications</h2>
+        <ul class="publication-list">
+          <li class="publication-item">
+            <img
+              src="./yyy (98) (1).png"
+              alt="Paper 1 thumbnail"
+              class="publication-image"
+            />
+            <div class="publication-details">
+              <div class="publication-title">
+                PoliMeme: Exploring Offensive Meme Propagation in the
+                Israel-Palestine Conflict
+              </div>
+              <div class="publication-venue">
+                WWW '25: Companion Proceedings of the ACM on Web Conference 2025
+              </div>
+              <a
+                href="https://dl.acm.org/doi/10.1145/3701716.3718387"
+                target="_blank"
+                class="publication-link"
+                >View Publication →</a
+              >
+            </div>
+          </li>
+          <li class="publication-item">
+            <img
+              src="./algorithms-16-00377-g004.jpg"
+              alt="Paper 1 thumbnail"
+              class="publication-image"
+            />
+            <div class="publication-details">
+              <div class="publication-title">
+                Ensemble Transfer Learning for Distinguishing Cognitively Normal
+                and Mild Cognitive Impairment Patients Using MRI
+              </div>
+              <div class="publication-venue">MDPI, 2024</div>
+              <a
+                href="https://www.mdpi.com/1999-4893/16/8/377#"
+                target="_blank"
+                class="publication-link"
+                >View Publication →</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <h2>Affiliations</h2>
+      <div class="affiliations">
+        <img
+          src="./microsoft.png"
+          alt="Microsoft Research"
+          class="company-logo"
+        />
+        <img
+          src="./samsung.png"
+          alt="Samsung Research"
+          class="company-logo"
+        />
+        <img src="./images.png" alt="Siemens" class="company-logo" />
+        <img
+          src="./University_of_Oxford-logo-2ACBB1AA61-seeklogo.com.png"
+          alt="Oxford University"
+          class="company-logo"
+        />
+        <img
+          src="./DTU,_Delhi_official_logo.png"
+          alt="DTU"
+          class="company-logo"
+        />
+        <img
+          src="./university-of-technology-sydney-logo-png_seeklogo-484220.png"
+          alt="UTS"
+          class="company-logo"
+        />
+      </div>
+    </div>
   </body>
 </html>
