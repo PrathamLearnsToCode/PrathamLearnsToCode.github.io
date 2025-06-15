@@ -141,10 +141,10 @@
       }
 
       .blog-post {
-        background-color: #f8f9fa;
+        margin-bottom: 40px;
         padding: 20px;
-        margin-bottom: 30px;
         border-radius: 8px;
+        background-color: #f8f9fa;
         transition: transform 0.2s ease;
       }
 
@@ -154,19 +154,27 @@
       }
 
       .blog-title {
-        font-size: 1.4em;
+        display: block;
+        font-size: 1.3em;
+        font-weight: 500;
         color: #2b6d77;
         margin-bottom: 10px;
+        text-decoration: none;
+      }
+
+      .blog-title:hover {
+        text-decoration: underline;
+      }
+
+      .blog-preview {
+        color: #636e72;
+        font-size: 1em;
+        line-height: 1.6;
       }
 
       .blog-meta {
         font-size: 0.9em;
         color: #636e72;
-        margin-bottom: 15px;
-      }
-
-      .blog-preview {
-        color: #2d3436;
         margin-bottom: 15px;
       }
 
@@ -278,41 +286,26 @@
     </nav>
 
     <div class="main-content">
-      <h2>Paper Analysis & Reviews</h2>
+      <h2>Papers I have read & found interesting to share</h2>
       
       <div class="blog-post">
-        <div class="blog-title">DeepFix: Automating C Code Repair with Deep Learning</div>
-        <div class="blog-meta">Published on March 20, 2024 | Code Analysis</div>
+        <a href="deepfix.html" class="blog-title">DeepFix: Automating C Code Repair with Deep Learning</a>
         <div class="blog-preview">
           A deep dive into how DeepFix uses deep learning to automatically detect and fix common programming errors in C code, acting as an intelligent coding assistant.
         </div>
-        <div class="blog-content">
-          <p>Picture wrestling with a C program, only to have the compiler throw a vague error message pointing to the wrong line. Infuriating, isn't it? Compilers catch mistakes but rarely help fix them. That's where DeepFix comes in...</p>
-          <a href="deepfix.html" class="read-more">Read More →</a>
-        </div>
       </div>
 
       <div class="blog-post">
-        <div class="blog-title">GNN-RAG: Graph Neural Retrieval for Large Language Model Reasoning</div>
-        <div class="blog-meta">Published on March 18, 2024 | AI Research</div>
+        <a href="gnn-rag.html" class="blog-title">GNN-RAG: Graph Neural Retrieval for Large Language Model Reasoning</a>
         <div class="blog-preview">
           Exploring how Graph Neural Networks and Large Language Models can work together to provide accurate answers from Knowledge Graphs.
         </div>
-        <div class="blog-content">
-          <p>Ever asked your AI a tricky question like, "Which language do Jamaican people speak?" and gotten a half-baked answer? Large language models (LLMs) are great at chatting, but they can fumble when it comes to reasoning over structured data...</p>
-          <a href="gnn-rag.html" class="read-more">Read More →</a>
-        </div>
       </div>
 
       <div class="blog-post">
-        <div class="blog-title">Gorilla: Enhancing LLMs with Massive API Integration</div>
-        <div class="blog-meta">Published on March 15, 2024 | AI Tools</div>
+        <a href="gorilla.html" class="blog-title">Gorilla: Enhancing LLMs with Massive API Integration</a>
         <div class="blog-preview">
           Understanding how Gorilla improves Large Language Models' ability to use external tools through API calls.
-        </div>
-        <div class="blog-content">
-          <p>Ever asked a language model to book a flight or analyze an image, only to get a vague or incorrect response? Large Language Models (LLMs) excel at dialogue and reasoning, but using external tools via API calls often trips them up...</p>
-          <a href="gorilla.html" class="read-more">Read More →</a>
         </div>
       </div>
     </div>
